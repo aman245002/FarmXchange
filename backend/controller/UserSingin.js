@@ -22,14 +22,15 @@ async function userSignInConroller(req, res) {
         _id: user._id,
         email: user.email,
       };
-      const token = await jwt.sign(tokenData, process.env.TOKEN_SECRET_KEY, {
+      const token = await jwt.sign(tokenData, process.env.TOKEN_SECRET_KEY, 
+        {
         expiresIn: 60 * 60 * 8,
       });
       const tokenOption={
         httpOnly :true,
         secure: true
       }
-      res.cookie("token",token.tokenOption).json({
+      res.cookie("token",token,tokenOption).json({
         message: "Login successfully",
         data: token,
         success : true,
